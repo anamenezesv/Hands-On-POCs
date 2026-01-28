@@ -1,11 +1,13 @@
 import { Component } from "@angular/core";
+import { CommonModule } from "@angular/common";
 
 @Component({
-    selector: 'app-series',
+    selector: 'series-page',
+    imports: [CommonModule],
     templateUrl: './series.html'
 })
 export class Series {
-    protected readonly seriesList = [
+    public readonly seriesList = [
         'Stranger Things',
         'The Crown',
         'Black Mirror',
