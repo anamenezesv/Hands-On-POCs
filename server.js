@@ -1,14 +1,25 @@
-const http = require('http');
+const express = require('express');
+const app = express();
 
-const server = http.createServer((req, res) => {
-    res.writeHead(200, {'Content-Type': 'text/plain' });
+app.get('/', (req, res) => {
+    res.send('Welcome to Dockerflix Backend!');
+});
 
-    res.write('Everything is fine');
-    res.end();
+app.get('/status', (req, res) => {
+    res.status(200).send('Everything is fine');
+});
+
+app.get('/series', (req, res) => {
+    res.json([
+        "Game of Thrones",
+        "Breaking Bad",
+        "Big Bang Theory",
+        "The Office",
+        "The Rookie"
+    ]);
 });
 
 const port = 4050;
-
-server.listen(port, () => {
+app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
 });
