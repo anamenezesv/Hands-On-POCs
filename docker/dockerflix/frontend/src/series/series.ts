@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ChangeDetectorRef } from "@angular/core";
 import { CommonModule } from "@angular/common";
 
 @Component({
@@ -9,12 +9,14 @@ import { CommonModule } from "@angular/common";
 export class Series implements OnInit {
     public seriesList: string[] = [];
 
+    constructor(private cdr: ChangeDetectorRef) {}
+
     ngOnInit(): void {
         this.getSeries();
     }
     
     async getSeries(){
-        const response = await fetch('http://localhost:4050/series');
-        this.seriesList = await response.json();
+        this.seriesList = await fetch('http://localhost:4050/series').then(response => response.json());
+        this.cdr.detectChanges();
     }
 }
