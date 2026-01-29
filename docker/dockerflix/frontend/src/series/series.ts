@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { CommonModule } from "@angular/common";
 
 @Component({
@@ -6,12 +6,15 @@ import { CommonModule } from "@angular/common";
     imports: [CommonModule],
     templateUrl: './series.html'
 })
-export class Series {
-    public readonly seriesList = [
-        'Stranger Things',
-        'The Crown',
-        'Black Mirror',
-        'The Witcher',
-        'Money Heist'
-    ];
+export class Series implements OnInit {
+    public seriesList: string[] = [];
+
+    ngOnInit(): void {
+        this.getSeries();
+    }
+    
+    async getSeries(){
+        const response = await fetch('http://localhost:4050/series');
+        this.seriesList = await response.json();
+    }
 }
