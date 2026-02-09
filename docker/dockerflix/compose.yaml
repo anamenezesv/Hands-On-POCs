@@ -2,29 +2,15 @@ services:
   dockerfile-frontend:
     build:
       context: ./frontend
-    environment:
-      NODE_ENV: development
     ports:
       - 3000:3000
-    develop:
-      watch:
-        - path: ./frontend/package.json
-          action: rebuild
-        - path: ./frontend
-          target: /src/app
-          action: sync
+    depends_on:
+      - dockerfile-backend
+    restart: always
 
   dockerfile-backend:
     build:
       context: ./backend
-    environment:
-      NODE_ENV: development
     ports:
       - 4050:4050
-    develop:
-      watch:
-        - path: ./backend/package.json
-          action: rebuild
-        - path: ./backend
-          target: /src/app
-          action: sync
+    restart: always
